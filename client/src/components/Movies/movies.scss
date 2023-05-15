@@ -1,0 +1,58 @@
+.movies {
+  margin-top: 0;
+  font-size: 25px;
+  letter-spacing: 0.1rem;
+
+  &__title {
+    margin: auto;
+    padding: 2rem;
+    width: 80%;
+    background-color: #900c3f;
+    color: white;
+    text-align: center;
+
+    &-search {
+      .movies__input {
+        width: 80%;
+        height: 25px;
+        font-size: 16px;
+        font-weight: bold;
+        &::placeholder {
+          color: #2b2d42;
+          font-weight: bold; /* Здесь можно задать желаемый шрифт или стиль */
+        }
+      }
+    }
+  }
+
+  &__list {
+    width: 100%;
+    margin: auto;
+    margin-top: 5rem;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+
+  .booking-btn__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .booking-btn__goBack {
+      margin: 30px;
+      color: #2b2d42;
+      background-color: inherit;
+      border: 1px solid #2b2d42;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      letter-spacing: 0.05rem;
+      align-items: center;
+
+      &:hover {
+        background-color: #2b2d42;
+        color: white;
+      }
+    }
+  }
+}
