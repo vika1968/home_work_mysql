@@ -10,8 +10,7 @@ const ChangeCredentials = () => {
 
   const handleGetUserByID = async () => {
     try {
-      const { data } = await axios.get(`/api/user/${user}`);
-      const activeUser = data;
+      const { data } = await axios.get(`/api/user/${user}`);  
 
       if (!data) {
         alert("No valid user");
@@ -73,7 +72,7 @@ const ChangeCredentials = () => {
         id: user,
       });
       if (response.data.userArray.affectedRows !== 1) {
-        alert("Something went wrong.Please check your data.");
+        alert("Something went wrong. Please check your data.");
       } else {
         alert("Your permission has been changed.");     
            navigate("/");    
@@ -99,7 +98,7 @@ const ChangeCredentials = () => {
               setEmail(event.target.value);
             }}
             className="change-credentials__input"
-            placeholder="Enter your new email"
+            placeholder="Enter your new email here ..."
             required
           />
         </div>
@@ -115,7 +114,7 @@ const ChangeCredentials = () => {
               setPassword(event.target.value);
             }}
             className="change-credentials__input"
-            placeholder="Enter your new password"
+            placeholder="Enter your new password here ..."
             required
           />
         </div>

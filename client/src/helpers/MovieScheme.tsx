@@ -1,13 +1,10 @@
-interface MovieScheme {
-     movies(movies: any): unknown;
+interface MovieScheme {    
      movieID: number;
      title: string;
      description: string;
      actors: string;
      releaseDate: string;
      posterUrl: string;
-     featured: boolean;
-     adminID: number;
+     featured: boolean;   
    }
-
 export default MovieScheme

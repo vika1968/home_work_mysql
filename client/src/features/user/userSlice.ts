@@ -23,7 +23,12 @@ const initialState: UserState = {
 export const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: {},
+  reducers: {
+    resetUser: (state) => {
+      state.value = null;
+      state.status = Status.IDLE;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getUserByCookieMain.pending, (state) => {
@@ -39,7 +44,7 @@ export const userSlice = createSlice({
   },
 });
 
-
+export const { resetUser } = userSlice.actions;
 export const userSelector = (state: RootState) => state.user.value;
 export const userStatusSelector = (state: RootState) => state.user.status;
 

@@ -3,29 +3,26 @@ import axios from "axios";
 import MovieScheme from './MovieScheme';
 
 interface MovieSchemeOneTime {
-  movieID: number;
+ // movieID: number;
   title: string;
   description: string;
   actors: string;
   releaseDate: string;
   posterUrl: string;
-  featured: boolean;
-  adminID: number;
+  featured: boolean; 
 }
 
 
-const MovieListInsertOnce = () => {
-    console.log("Privet")
+const MovieListInsertOnce = () => {   
 
-const movies = [   
+    const movies: MovieSchemeOneTime[] = [   
   {   
     title: "Midnight Express",
     description: "Billy Hayes, an American college student, is caught smuggling drugs out of Turkey and thrown into prison.",
     actors: "Brad Davis, Irene Miracle, Bo Hopkins, Paolo Bonacelli",
     releaseDate: "1978-01-01",  
     posterUrl:  "https://images-na.ssl-images-amazon.com/images/M/MV5BMTQyMDA5MzkyOF5BMl5BanBnXkFtZTgwOTYwNTcxMTE@._V1_SX300.jpg",
-    featured: true,
-    adminID: 1 
+    featured: true, 
   },
     {   
       title: "The Cotton Club",
@@ -33,8 +30,7 @@ const movies = [
       actors: "Richard Gere, Gregory Hines, Diane Lane, Lonette McKee",
       releaseDate: "1984-01-01",
       posterUrl:"https://images-na.ssl-images-amazon.com/images/M/MV5BMTU5ODAyNzA4OV5BMl5BanBnXkFtZTcwNzYwNTIzNA@@._V1_SX300.jpg",
-      featured: true,
-      adminID: 1 
+      featured: true,     
     },   
     {    
       title: "Crocodile Dundee",
@@ -42,8 +38,7 @@ const movies = [
       actors: "Paul Hogan, Linda Kozlowski, John Meillon, David Gulpilil",
       releaseDate: "1986-01-01",
       posterUrl: "https://images-na.ssl-images-amazon.com/images/M/MV5BMTg0MTU1MTg4NF5BMl5BanBnXkFtZTgwMDgzNzYxMTE@._V1_SX300.jpg",
-      featured: true,
-      adminID: 1      
+      featured: true,        
     },   
     {   
       title: "Ratatouille",
@@ -51,8 +46,7 @@ const movies = [
       actors: "Patton Oswalt, Ian Holm, Lou Romano, Brian Dennehy",
       releaseDate: "2007-01-01",
       posterUrl: "https://images-na.ssl-images-amazon.com/images/M/MV5BMTMzODU0NTkxMF5BMl5BanBnXkFtZTcwMjQ4MzMzMw@@._V1_SX300.jpg",
-      featured: true,
-      adminID: 1      
+      featured: true,       
       },
       {
         title: "Chasing Amy",
@@ -60,8 +54,7 @@ const movies = [
         actors: "Ethan Suplee, Ben Affleck, Scott Mosier, Jason Lee",
         releaseDate: "1997-01-01",
         posterUrl: "https://images-na.ssl-images-amazon.com/images/M/MV5BZDM3MTg2MGUtZDM0MC00NzMwLWE5NjItOWFjNjA2M2I4YzgxXkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg",
-        featured: true,
-        adminID: 1      
+        featured: true,           
       },  
       {
      
@@ -71,13 +64,13 @@ const movies = [
         releaseDate: "1991-01-01",
         posterUrl:   "https://images-na.ssl-images-amazon.com/images/M/MV5BMTQ2NzkzMDI4OF5BMl5BanBnXkFtZTcwMDA0NzE1NA@@._V1_SX300.jpg",
         featured: true,
-        adminID: 1          
-       },
+     },
   ];
 
+
+
 function handleInsertMovieList() {
-    movies.forEach((movie: any) => {
-      console.log(movie)
+    movies.forEach((movie: MovieSchemeOneTime) => {    
      insertMoviesIntoDB(movie);
     });
   }
@@ -85,7 +78,7 @@ function handleInsertMovieList() {
   async function insertMoviesIntoDB(movie: MovieSchemeOneTime) {   
     try {
     const { data } = await axios.post(
-      // "http://localhost:3000/api/movie/insert-into-movies",
+       //"http://localhost:3000/api/movie/insert-into-movies",
       "/api/movie",
       {   
         title:  movie.title,
@@ -93,8 +86,7 @@ function handleInsertMovieList() {
         actors: movie.actors,
         releaseDate: movie.releaseDate,
         posterUrl: movie.posterUrl,
-        featured: movie.featured,
-        adminID: movie.adminID
+        featured: movie.featured,      
       }
     );
     console.log("All movies were inserted successfully!!!!!!");

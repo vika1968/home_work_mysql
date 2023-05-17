@@ -1,44 +1,27 @@
-
 import React, { useEffect, useState } from "react";
 import "./Booking.scss";
 import { useParams, useNavigate } from "react-router-dom";
 import { getMovieDetails, newBooking } from "../../helpers/api-helpers";
-import MovieSchemeFull from "../../helpers/MovieSchemeFull";
-import axios from "axios";
-import { useAppDispatch, useAppSelector } from "../../app/hooks";
+import MovieScheme from "../../helpers/MovieScheme";
+import { useAppSelector } from "../../app/hooks";
 import { userSelector } from "../../features/user/userSlice";
-import { getUserByCookieMain } from "../../features/user/userAPI";
+import { User } from "../../features/user/userModel";
 
 const Booking = () => {
-  const [movie, setMovie] = useState<MovieSchemeFull | null>(null);
-  const [activeUser, setActiveUser] = useState<number | undefined>();
-  const [inputs, setInputs] = useState<{ seatNumber: string; date: string }>({seatNumber: "", date: "" });
+  const [movie, setMovie] = useState<MovieScheme | null>(null);
+  const [inputs, setInputs] = useState<{ seatNumber: string; date: string }>({
+    seatNumber: "",
+    date: "",
+  });
   const { id } = useParams<{ id: string }>();
 
-  const dispatch = useAppDispatch();
-  const user = useAppSelector(userSelector);
+  const user = useAppSelector(userSelector) as User[] | null;
 
   const navigate = useNavigate();
 
   useEffect(() => {
     fetchMovieDetails();
-    getUserByCookie2();
-
-   // dispatch(compareUserWithCookie());
-    dispatch(getUserByCookieMain);
-    // if (user === undefined) {
-    //   alert("Sorry, you are an unauthorized user. Please login or register.");
-    //   navigate("/");
-    // }
   }, [id]);
-
-  // useEffect(() => {
-  //   dispatch(compareUserWithCookie());
-  //   if (user == undefined) {
-  //     alert ("Sorry, you are an unauthorized user. Please login or register.")
-  //     navigate("/");
-  //   }
-  // }, []);
 
   const fetchMovieDetails = async () => {
     try {
@@ -46,21 +29,6 @@ const Booking = () => {
       setMovie(res.movie[0]);
     } catch (err) {
       console.log(err);
-    }
-  };
-
-  const getUserByCookie2 = async () => {
-    try {    
-      const { data } = await axios.get("/api/user/reducer/get-user-by-cookie");       
-      console.log(data)
-      if (!data) throw new Error("Client not defined. ");         
-      console.log(data.userData[0].userID)
-       if (!data.userData[0].userID) {
-         navigate("/");
-       }
-      setActiveUser(data.userData[0].userID);
-    } catch (error: any) {
-      console.error(error.response.data.error);
     }
   };
 
@@ -73,13 +41,17 @@ const Booking = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    console.log("----Add booking----------");
-    console.log(inputs);
-    if (movie) {
-      newBooking({ ...inputs, movie: movie.movieID, userID: activeUser })
-        .then((res) => alert(res.success))
-        .catch((err) => console.log(err));
+    if (user) {
+      if (movie) {
+        newBooking({ ...inputs, movie: movie.movieID, userID: user[0].userID })
+          .then((res) => alert(res.success))
+          .catch((err) => console.log(err));
+      }
+    } else {
+      alert(
+        "You are not an authorized user and do not have the right to place an order. Please login or register."
+      );
+      navigate("/");
     }
   };
 

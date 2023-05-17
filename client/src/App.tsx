@@ -5,6 +5,7 @@ import "./App.scss";
 import Booking from "./components/Bookings/Booking";
 import Login from "./app/views/login/Login";
 import ChangeCredentials from "./app/views/changecredentials/ChangeCredentials";
+import MovieListInsertOnce from "./helpers/MovieListInsertOnce";
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <section>
           <Routes>
             <Route path="/" element={<Login />} />
-            {/* <Route path="/homepage/:user" element={<HomePage />} /> */}
+            {/* <Route path="/" element={<MovieListInsertOnce/>} /> */}           
             <Route path="/homepage" element={<HomePage />} />
             <Route path="/change-credentials/:user" element={<ChangeCredentials />}/>
             <Route path="/movies" element={<Movies />} />

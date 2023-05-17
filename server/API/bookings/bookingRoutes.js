@@ -8,5 +8,4 @@ const bookingCtrl_1 = require("./bookingCtrl");
 const bookingsRouter = express_1.default.Router();
 bookingsRouter.get("/:id", bookingCtrl_1.getBookingById);
 bookingsRouter.post("/", bookingCtrl_1.newBooking);
-bookingsRouter.delete("/:id", bookingCtrl_1.deleteBooking);
 exports.default = bookingsRouter;

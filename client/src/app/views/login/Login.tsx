@@ -1,6 +1,8 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { resetUser } from "../../../features/user/userSlice";
 
 const Login = () => {
   const [error, setError] = useState("");
@@ -9,6 +11,8 @@ const Login = () => {
   const [password, setPassword] = useState("");
   const [isActive, setIsActive] = useState(true);
   const [whatClicked, setWhatClicked] = useState(`Login`);
+
+  const dispatch = useDispatch();
 
   const handleChange = (event: any) => {
     setError("");
@@ -22,6 +26,7 @@ const Login = () => {
 
   const handleUpdateOrRemoveUser = async (event: any) => {
     try {
+      setError("");
       if (!email) {
         alert("Please fill in the username field!");
         return;
@@ -41,6 +46,9 @@ const Login = () => {
           const deleteResponse = await axios.delete(`/api/user/${id}`);
           if (deleteResponse.statusText === "OK") {
             alert("User was successfully deleted.");
+
+            // Dispatch the resetUser action
+            dispatch(resetUser());
           }
         } else {
           navigate(`/change-credentials/${id}`);
@@ -73,29 +81,10 @@ const Login = () => {
       }
 
       const { data } = await axios.post(route, { email, password });
-      //console.log(data);
       const { success, userArray } = data;
 
-      //     let id: string;
-
-      //     if (route === "/api/user/register") {
-      //       id = userArray.insertId.toString();
-      //      // console.log(userArray.insertId);
-      //     } else {
-      //       id = userArray[0].userID;
-      //     //  console.log(userArray[0].userID);
-      //     }
-
-      //     if (success) {
-      //       navigate(`/homepage/${id}`);
-      //     }
-      //   } catch (error: any) {
-      //     setError(error.response.data.error);
-      //   }
-      // }
-
       if (success) {
-        navigate(`/homepage`);
+        navigate(`/homepage`, { state: { email } });
       }
     } catch (error: any) {
       setError(error.response.data.error);
@@ -125,7 +114,6 @@ const Login = () => {
         register
       </h2>
       <br />
-      <br />
       <form className="login__form" onSubmit={handleSubmit}>
         <input
           className="login__input-username input"
@@ -140,7 +128,6 @@ const Login = () => {
           }}
         />
         <span>username</span>
-        <br />
         <br />
         <input
           className="login__input-password input"

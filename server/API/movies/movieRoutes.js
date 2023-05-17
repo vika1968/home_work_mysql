@@ -9,4 +9,5 @@ const movieRouter = express_1.default.Router();
 movieRouter.get("/", movieCtrl_1.getAllMovies);
 movieRouter.get("/:id", movieCtrl_1.getMovieById);
 movieRouter.post("/search-movies", movieCtrl_1.searchMovies);
+movieRouter.post("/", movieCtrl_1.insertIntoMoviesTable);
 exports.default = movieRouter;
