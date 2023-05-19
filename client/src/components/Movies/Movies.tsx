@@ -12,6 +12,7 @@ const Movies = () => {
   const [movies, setMovies] = useState<MovieScheme[]>();
   const [searchQuery, setSearchQuery] = useState("");
   const navigate = useNavigate();
+  
   const user = useAppSelector(userSelector) as User[] | null;
 
   const fetchData = async () => {

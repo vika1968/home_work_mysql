@@ -6,11 +6,12 @@ const userRouter = express.Router();
 
 userRouter
   .get("/:id", getUserByID)
+  .get("/retrieve/get-user-by-cookie", getUser)  
   .post("/login", login)
   .post("/register", register)
   .put("/update-user", updateUser)
   .delete("/:id", deleteUser)
-  .get("/reducer/get-user-by-cookie", getUser)  
+
 export default userRouter;
 
 

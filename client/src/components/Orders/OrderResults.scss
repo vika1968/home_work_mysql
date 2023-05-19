@@ -1,0 +1,27 @@
+.order-results {
+    &__title {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+  
+    &__list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+  
+      &-item {
+        margin-bottom: 10px;
+  
+        & span {
+          display: block;
+          margin-bottom: 5px;
+  
+          &:first-child {
+            font-weight: bold;
+          }
+        }
+      }
+    }
+  }
+  

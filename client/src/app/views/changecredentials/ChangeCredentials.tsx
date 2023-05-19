@@ -75,7 +75,7 @@ const ChangeCredentials = () => {
         alert("Something went wrong. Please check your data.");
       } else {
         alert("Your permission has been changed.");     
-           navigate("/");    
+           navigate("/homepage");    
       }
     } catch (error: any) {
       alert(error.response.data.error);
@@ -84,12 +84,12 @@ const ChangeCredentials = () => {
 
   return (
     <div className="change-credentials">
-      <h4 className="change-credentials__title">Change Credentials</h4>
+      <h4 className="change-credentials__title">change credentials</h4>
 
       <form className="change-credentials__form" onSubmit={handleSubmit}>
         <div className="change-credentials__input-group">
           <label className="change-credentials__label" htmlFor="email">
-            Email:
+            username:
           </label>
           <input
             type="email"
@@ -105,7 +105,7 @@ const ChangeCredentials = () => {
 
         <div className="change-credentials__input-group">
           <label className="change-credentials__label" htmlFor="password">
-            Password:
+            password:
           </label>
           <input
             type="password"

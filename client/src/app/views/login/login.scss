@@ -25,9 +25,11 @@ body {
     width: 400px;
     margin: auto;
     padding: 60px 60px;
-    background-color: #2f6c9e;
+   // background-color: #2f6c9e;
+    background-color:#7c133db8;
     background-size: cover;
-    box-shadow: 0px 30px 60px -5px #24547c;
+   // box-shadow: 0px 30px 60px -5px #24547c;
+   box-shadow: 0px 30px 60px -5px #900c3fb4;
     border-radius: 30px;
 
     .login__header--active {
@@ -124,7 +126,7 @@ body {
     }
 
     .login__button {
-      background-color: #24547c;
+      background-color: #900c3faf;
       color: #FFF;
       width: 100%;
       padding: 10px 20px;
@@ -138,13 +140,15 @@ body {
     }
 
     .login__button:hover {
-      background: #24547c;
-      box-shadow: 0px 4px 35px -5px #24547c;
+      border: 1px solid white;
+      background: #900c3f;
+      box-shadow: 0px 4px 35px -5px #900c3f;
       cursor: pointer;
     }
 
     .remove__button,
     .update__button {
+      transition: all 0.5s ease-in-out;
       border: 1px solid white;
       color: white;
       text-align: right;
@@ -161,11 +165,10 @@ body {
 
     .remove__button:hover,
     .update__button:hover {
-      background: #24547c;
-      box-shadow: 0px 4px 35px -5px #24547c;
+      background: #900c3f;
+      box-shadow: 0px 4px 35px -5px #900c3f;
       cursor: pointer;
     }
-
 
     #idUserName:hover,
     #idPassword:hover {
