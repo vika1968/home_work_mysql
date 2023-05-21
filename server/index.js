@@ -19,7 +19,7 @@ app.use("/api/movie", movieRoutes_1.default);
 const bookingRoutes_1 = __importDefault(require("./API/bookings/bookingRoutes"));
 app.use("/api/booking", bookingRoutes_1.default);
 const ordersRoutes_1 = __importDefault(require("./API/orders/ordersRoutes"));
-app.use("/api/order", ordersRoutes_1.default);
+app.use("/api/orders", ordersRoutes_1.default);
 app.listen(port, () => {
     console.log(`server is running on port ${port}`);
 });

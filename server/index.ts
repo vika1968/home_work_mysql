@@ -23,7 +23,7 @@ import movieRouter from "./API/movies/movieRoutes";
  app.use("/api/booking", bookingsRouter)
 
  import orderRouter from "./API/orders/ordersRoutes";
- app.use("/api/order", orderRouter)
+ app.use("/api/orders", orderRouter)
 
 app.listen(port, () => {
   console.log(`server is running on port ${port}`);

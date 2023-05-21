@@ -6,6 +6,7 @@ import Booking from "./components/Bookings/Booking";
 import Login from "./app/views/login/Login";
 import ChangeCredentials from "./app/views/changecredentials/ChangeCredentials";
 import MovieListInsertOnce from "./helpers/MovieListInsertOnce";
+import OrderResults from "./components/Orders/OrderResults";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
             <Route path="/change-credentials/:user" element={<ChangeCredentials />}/>
             <Route path="/movies" element={<Movies />} />
             <Route path="/booking/:id" element={<Booking />} />
+            <Route path="/order/:id" element={<OrderResults />} />         
           </Routes>
         </section>
       </BrowserRouter>

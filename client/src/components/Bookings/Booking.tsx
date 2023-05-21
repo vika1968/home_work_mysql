@@ -58,6 +58,20 @@ const Booking = () => {
   const handleGoBack = () => {
     navigate("/movies");
   };
+  
+  const handleGoToBookingHistory
+  = () => {
+  
+    if (user && user.length > 0) {     
+      navigate(`/order/${user[0].userID}`);
+    }
+    else{
+      alert(
+        "You are not an authorized user. Please login or register."       
+      );
+      navigate("/");
+    }
+  };
 
   return (
     <div>
@@ -111,6 +125,9 @@ const Booking = () => {
       <div className="booking-btn__container">
         <button className="booking-btn__goBack" onClick={handleGoBack}>
           Go to all movies
+        </button>
+        <button className="booking-btn__goMyOrders" onClick={handleGoToBookingHistory}>
+          Go to booking history
         </button>
       </div>
     </div>

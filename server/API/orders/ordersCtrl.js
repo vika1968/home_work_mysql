@@ -7,7 +7,12 @@ exports.getOrdersByUserID = void 0;
 const database_1 = __importDefault(require("../../DB/database"));
 const getOrdersByUserID = (req, res) => {
     const id = req.params.id;
-    const query = `SELECT * FROM \`movie-booking\`.\`booking\` WHERE userID='${id}'`;
+    const query = `
+  SELECT b.bookingID As id, u.email, m.title, b.seatNumber, b.date FROM \`movie-booking\`.\`booking\` AS b
+  INNER JOIN \`movie-booking\`.\`users\` AS u ON b.userID = u.userID
+  INNER JOIN \`movie-booking\`.\`movies\` AS m ON b.movieID = m.movieID
+  WHERE b.userID = ${id};
+`;
     database_1.default.query(query, (error, results) => {
         try {
             if (error) {
@@ -20,7 +25,7 @@ const getOrdersByUserID = (req, res) => {
             return res.status(200).json({ orders });
         }
         catch (error) {
-            res.status(500).send({ sucess: false, error: error.message });
+            return res.status(500).json({ success: false, error: error.message });
         }
     });
 };

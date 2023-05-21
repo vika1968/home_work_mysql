@@ -6,7 +6,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mysql2_1 = __importDefault(require("mysql2"));
 require("dotenv").config();
 const sqlPassword = process.env.SQLPASSWORD;
-//@ts-ignore
 const connection = mysql2_1.default.createConnection({
     host: "localhost",
     port: 3306,

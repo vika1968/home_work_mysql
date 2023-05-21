@@ -6,7 +6,6 @@ require("dotenv").config();
 
 const sqlPassword = process.env.SQLPASSWORD; 
 
-//@ts-ignore
 const connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
