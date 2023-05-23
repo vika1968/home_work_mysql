@@ -8,4 +8,5 @@ const bookingCtrl_1 = require("./bookingCtrl");
 const bookingsRouter = express_1.default.Router();
 bookingsRouter.get("/:id", bookingCtrl_1.getBookingById);
 bookingsRouter.post("/", bookingCtrl_1.newBooking);
+bookingsRouter.post("/batch", bookingCtrl_1.newBookingBatch);
 exports.default = bookingsRouter;

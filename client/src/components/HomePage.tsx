@@ -17,7 +17,6 @@ const HomePage = () => {
   const email = location.state?.email || "";
 
   const dispatch = useAppDispatch();
-
   const loggedInUser = useAppSelector(userSelector) as User[] | null;
 
   useEffect(() => {
