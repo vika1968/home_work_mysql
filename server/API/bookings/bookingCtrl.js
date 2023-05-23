@@ -14,15 +14,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getBookingById = exports.newBookingBatch = exports.newBooking = void 0;
 const database_1 = __importDefault(require("../../DB/database"));
+//---Add single record with preventing duplicates
 const newBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { movie, date, seatNumber, user } = req.body;
-        console.log(req.body);
         const query = `INSERT INTO \`movie-booking\`.\`booking\` (movieID, date, seatNumber, userID)
         SELECT ${movie}, '${date}', ${seatNumber}, ${user}
         FROM dual
-        WHERE NOT EXISTS (SELECT movieID FROM \`movie-booking\`.\`booking\` WHERE movieID = ${movie} AND date = '${date}' And seatNumber = ${seatNumber} And userID = ${user});`;
-        console.log(query);
+        WHERE NOT EXISTS (SELECT movieID FROM \`movie-booking\`.\`booking\` WHERE movieID = ${movie} AND date = '${date}' AND seatNumber = ${seatNumber} AND userID = ${user});`;
         database_1.default.query(query, (error, results, fields) => {
             if (error) {
                 return res.status(500).send({
@@ -43,42 +42,33 @@ const newBooking = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     }
 });
 exports.newBooking = newBooking;
+//---Add  records with preventing duplicates
 const newBookingBatch = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const orders = req.body.orders;
-        // Check for existing bookings
-        const existingBookingsQuery = `SELECT movieID, date, seatNumber, userID FROM \`movie-booking\`.\`booking\` WHERE `;
-        const conditions = orders.map(({ movieID, date, seatNumber, userID }) => `(movieID = ${movieID} AND date = '${date}' AND seatNumber = ${seatNumber} AND userID = ${userID})`).join(' OR ');
-        const checkExistingQuery = existingBookingsQuery + conditions;
-        database_1.default.query(checkExistingQuery, (error, results) => {
+        const values = orders
+            .map(({ movieID, date, seatNumber, userID }) => `SELECT ${movieID}, '${date}', ${seatNumber}, ${userID}`)
+            .join(' UNION ALL ');
+        const sql = `
+      INSERT INTO \`movie-booking\`.\`booking\` (movieID, date, seatNumber, userID)
+      WITH newBookings (movieID, date, seatNumber, userID) AS (
+        SELECT * FROM (${values}) AS derived
+      )
+      SELECT movieID, date, seatNumber, userID FROM newBookings
+      WHERE NOT EXISTS (
+        SELECT 1 FROM \`movie-booking\`.\`booking\`
+        WHERE movieID = newBookings.movieID
+        AND date = newBookings.date
+        AND seatNumber = newBookings.seatNumber
+        AND userID = newBookings.userID
+      )
+    `;
+        database_1.default.query(sql, (error, results) => {
             if (error) {
-                console.error('Error checking existing bookings:', error);
-                res.status(500).send('Error checking existing bookings in the database.');
+                res.status(500).send('Error inserting data into the database.');
             }
             else {
-                const existingBookings = results;
-                console.log('Existing Bookings:', existingBookings);
-                const existingBookingsSet = new Set(existingBookings.map((booking) => JSON.stringify(booking)));
-                // Filter out existing bookings
-                const newOrders = orders.filter(order => !existingBookingsSet.has(JSON.stringify(order)));
-                if (newOrders.length === 0) {
-                    // All orders are duplicates
-                    res.send('All orders already exist in the database.');
-                }
-                else {
-                    // Insert new bookings
-                    const values = newOrders.map(({ movieID, date, seatNumber, userID }) => `(${movieID}, '${date}', ${seatNumber}, ${userID})`).join(',');
-                    const sql = `INSERT INTO \`movie-booking\`.\`booking\` (movieID, date, seatNumber, userID) VALUES ${values}`;
-                    database_1.default.query(sql, (error, results) => {
-                        if (error) {
-                            console.error('Error inserting data:', error);
-                            res.status(500).send('Error inserting data into the database.');
-                        }
-                        else {
-                            res.send('Data successfully inserted into the database.');
-                        }
-                    });
-                }
+                res.send('Data successfully inserted into the database.');
             }
         });
     }
@@ -94,8 +84,8 @@ const getBookingById = (req, res) => __awaiter(void 0, void 0, void 0, function*
         const [rows, fields] = yield database_1.default.execute(`SELECT * FROM \`movie-booking\`.\`booking\` WHERE bookingID=${id}`);
         booking = rows[0];
     }
-    catch (err) {
-        return console.log(err);
+    catch (error) {
+        return console.log(error);
     }
     if (!booking) {
         return res.status(500).json({ message: 'Unexpected Error' });

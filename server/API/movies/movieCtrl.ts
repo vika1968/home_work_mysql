@@ -1,6 +1,18 @@
 
 import express from "express";
 import connection from "../../DB/database";
+import { RowDataPacket } from "mysql2";
+
+interface MovieScheme {    
+  movieID: number;
+  title: string;
+  description: string;
+  actors: string;
+  releaseDate: string;
+  posterUrl: string;
+  featured: boolean;   
+}
+
 
 export const getMovieById = (req: express.Request, res: express.Response) => {
   const id = req.params.id;
@@ -12,7 +24,7 @@ export const getMovieById = (req: express.Request, res: express.Response) => {
         return res.status(500).json({  success: false, error: "Internal Server Error" });
       } 
 
-      if ((results as any[]).length === 0) {     
+      if ((results as MovieScheme[]).length === 0) {     
         return res.status(404).json({  success: false, error: "Invalid Movie ID" });
       }
 

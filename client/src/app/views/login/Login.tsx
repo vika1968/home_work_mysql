@@ -123,8 +123,8 @@ const Login = () => {
           type="email"
           placeholder="email"
           required
-          onInput={(ev: any) => {
-            setEmail(ev.target.value);
+          onInput={(event: any) => {
+            setEmail(event.target.value);
           }}
         />
         <span>username</span>
@@ -137,11 +137,11 @@ const Login = () => {
           type="password"
           placeholder="password"
           required
-          onInput={(ev: any) => {
-            setPassword(ev.target.value);
+          onInput={(event: any) => {
+            setPassword(event.target.value);
           }}
-          onChange={(ev: any) => {
-            handleChange(ev.target.value);
+          onChange={(event: any) => {
+            handleChange(event.target.value);
           }}
         />
         <span>password</span>

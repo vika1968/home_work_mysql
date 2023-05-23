@@ -23,7 +23,7 @@ const HomePage = () => {
     dispatch(getUserByCookieMain());
 
     getAllMovies()
-      .then((data: any) => setMovies(data.movies))
+      .then((data) => setMovies(data.movies))
       .catch((err: any) => console.log(err));
   }, []);
 

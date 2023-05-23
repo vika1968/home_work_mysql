@@ -15,6 +15,7 @@ function App() {
         <section>
           <Routes>
             <Route path="/" element={<Login />} />
+            {/* Gili, this Route to add movies to DB */}
             {/* <Route path="/" element={<MovieListInsertOnce/>} /> */}           
             <Route path="/homepage" element={<HomePage />} />
             <Route path="/change-credentials/:user" element={<ChangeCredentials />}/>

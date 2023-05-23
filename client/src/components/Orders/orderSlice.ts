@@ -37,10 +37,3 @@ export const orderSlice = createSlice({
 export const { Add_Order, reset_Orders } = orderSlice.actions;
 export const orderSelector = (state: RootState) => state.order;
 export default orderSlice.reducer;
-
-// reducers: {
-//   resetUser: (state) => {
-//     state.value = null;
-//     state.status = Status.IDLE;
-//   },
-// },

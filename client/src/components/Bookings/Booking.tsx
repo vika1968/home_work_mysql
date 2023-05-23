@@ -22,8 +22,8 @@ const Booking = () => {
 
   const dispatch = useDispatch();
   const user = useAppSelector(userSelector) as User[] | null;
-  const orders = useAppSelector(orderSelector);
-  const orderState = useAppSelector((state) => state.order);
+  const orders = useAppSelector(orderSelector)
+  const orderState = useAppSelector((state) => state.order); 
 
   const saveMyOrders = (item: OrderScheme) => {
     if (
@@ -33,8 +33,8 @@ const Booking = () => {
     ) {
       alert("Please select a seat number and date.");
       return;
-    }
-    dispatch(Add_Order(item));
+    }  
+    dispatch(Add_Order(item));    
   };
 
   const navigate = useNavigate();
@@ -80,14 +80,17 @@ const Booking = () => {
   };
 
   const handleSaveAllBookings = async () => {
-    try {
-      if (orderState.orders.length > 0) {
-        const response = await axios.post("/api/booking/batch", orders);
+    try {   
+
+      if(orderState.orders.length>0){
+        const response = await axios.post("/api/booking/batch", orders);       
         alert("All your orders have been successfully added.");
-        dispatch(reset_Orders());
-      } else {
-        alert("You don't have any pre-recorded orders.");
+        dispatch(reset_Orders())
       }
+      else{
+        alert("You don't have any pre-recorded orders.");
+      }  
+    
     } catch (error: any) {
       if (error.response && error.response.data && error.response.data.error) {
         console.log(error.response.data.error);
@@ -170,7 +173,7 @@ const Booking = () => {
           className="booking-btn__save-orders booking-btn__goMyOrders"
           onClick={() =>
             saveMyOrders({
-              movieID: movie?.movieID || 0,
+              movieID: movie?.movieID || 0,            
               date: inputs.date,
               seatNumber: parseInt(inputs.seatNumber),
               userID: user?.[0]?.userID || 0,

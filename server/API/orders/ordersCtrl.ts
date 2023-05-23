@@ -3,6 +3,14 @@
 import express from "express";
 import connection from "../../DB/database";
 
+interface Order {
+  id: number;
+  email: string;
+  title: string;
+  seatNumber: number;
+  date: string;
+}
+
 export const getOrdersByUserID = (req: express.Request, res: express.Response) => {
   const id = req.params.id;
 
@@ -19,7 +27,7 @@ export const getOrdersByUserID = (req: express.Request, res: express.Response) =
         return res.status(500).json({ success: false, error: "Internal Server Error" });
       }
 
-      if ((results as any[]).length === 0) {           
+      if ((results as Order[]).length === 0) {           
         return res.status(404).json({ success: false, error: "Invalid userID" });
       }
 

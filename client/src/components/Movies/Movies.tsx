@@ -70,7 +70,7 @@ const Movies = () => {
   //   }
   // };
   //-------------Second block useCallback---------------------------------------
-  const searchMovies = useCallback(async (query: any) => {
+  const searchMovies = useCallback(async (query: string) => {
     try {
       const response = await axios.post("/api/movie/search-movies", { query });     
       return response.data;
@@ -83,7 +83,7 @@ const Movies = () => {
   useEffect(() => {
     if (searchQuery.trim() !== "") {
       searchMovies(searchQuery)
-        .then((data: any) => {
+        .then((data) => {
           setMovies(data.movies);
         })
         .catch((err: any) => {
